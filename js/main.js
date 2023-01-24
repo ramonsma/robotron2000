@@ -1,6 +1,5 @@
 const controle = document.querySelectorAll('[data-controle]')
 const estatistica = document.querySelectorAll('[data-estatistica]')
-console.log(estatistica)
 const pecas = {
     "bracos": {
         "forca": 29,
@@ -43,8 +42,7 @@ controle.forEach( (elemento) => {
 
 function manipulaDados(operacao, controle) {
     const peca = controle.querySelector("[data-contador]")
-
-    if(operacao == "-"){
+    if(operacao == "-" && peca.value>0){
         peca.value = parseInt(peca.value) - 1
     } else if (operacao == "+"){
         peca.value = parseInt(peca.value) + 1
@@ -52,13 +50,15 @@ function manipulaDados(operacao, controle) {
 }
 
 function atualizaEstatistica(peca, operacao) {
+    const teste = document.querySelector("[data-contador]")
     if(operacao === "+"){
         estatistica.forEach( (elemento) => {
             elemento.textContent = parseInt(elemento.textContent) + pecas[peca][elemento.dataset.estatistica]
     }) 
-    } else {
+    } else if(teste.value>0){
+        // console.log('suck') bug ao decrementar
         estatistica.forEach( (elemento) => {
-        elemento.textContent = parseInt(elemento.textContent) - pecas[peca][elemento.dataset.estatistica]
+            elemento.textContent = parseInt(elemento.textContent) - pecas[peca][elemento.dataset.estatistica]
         })
     }
 }
